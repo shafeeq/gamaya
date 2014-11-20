@@ -1,0 +1,37 @@
+<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{url_for('index')}}"><img style="max-width:100px; margin-top: -7px;" src="{{ url_for('static',filename='images/logo.png') }}"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="{% if page == 'home' %}{{'active'}}{% endif %}"><a href="{{url_for('index')}}">Home</a></li>
+            {% if g.user.is_authenticated() %}
+
+            <li class="{% if page == 'workshops' %}{{'active'}}{% endif %}"><a  href="{{url_for('workshops')}}">Workshops</a></li>
+              <li class = "{% if page == 'events' %}{{'active'}}{% endif %}"><a  href="{{url_for('events')}}">Events</a></li>
+              {% if g.user.is_admin == True %}
+              <li class="{% if page == 'admin' %}{{'active'}}{% endif %}"><a href="{{url_for('admin')}}">Admin</a></li>
+              {% endif %}
+            {% endif %}
+<!--             <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li> -->
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if g.user.is_authenticated() %}
+              <li><a href="{{url_for('logout')}}">Logout {{g.user.name}}</a></li>
+              {% else %}
+              <li class="{% if page == 'login' %}{{'active'}}{% endif %}"><a href="{{url_for('login')}}">Login</a></li>
+              <li class = "{% if page == 'register' %}{{'active'}}{% endif %}"><a href="{{url_for('register')}}">Register</a></li>
+              {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>

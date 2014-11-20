@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+
+  <title>Gamaya | Sign in</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootswatch.css') }}" rel="stylesheet" media="all">
+
+  <!-- Custom styles for this template -->
+
+  
+  <!-- favicon -->
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
+
+
+</head>
+
+<body>
+
+
+  <div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+      <div class="cover-container">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand"><a href="{{url_for('index')}}" style="text-decoration: none;">Gamaya</a></h3>
+            <ul class="nav masthead-nav">
+              <li><a href="{{url_for('index')}}">Home</a></li>
+              <li class="active"><a href="{{url_for('login')}}">Login</a></li>
+              <li><a href="{{url_for('register')}}">Register</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <div class="form-signin">
+          {% include 'flash.html'%}
+        </div>
+
+
+           <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example"/>
+        </div>
+
+
+        <div class="mastfoot">
+          <div class="inner">
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+</body>
+</html>

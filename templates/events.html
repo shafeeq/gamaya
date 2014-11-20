@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <title>Gamaya 2014 | Events </title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+  <style>
+  .jumbotron{
+    padding: 0px;
+  }
+  </style>
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+</head>
+
+<body style="padding-top: 70px;">
+
+
+
+  <!-- Fixed navbar -->
+  {% include 'navbar.html' %}
+
+  <div class="jumbotron">
+    <div class="container">
+      <h3>Register for Events</h3>
+      {% if not g.user.is_authenticated() %}
+      
+        <h4>Log in to register.</h4>
+        {% endif %}
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <div class="row">
+        {% for type in eventtypes[:3] %}
+        <div class="col-md-4">
+          <h4>{{type[1]}}</h4>
+          <div class="panel-group" id="accordion{{type[0]}}">
+            {% set counter = ['1']%}
+            {% for event in events %}
+            {% if event.department == type[0] %}
+            <div class="panel {% if event in userevents %}{{'panel-success'}}{% else %}{{'panel-default'}}{% endif %}">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" class="btn-block" data-parent="#accordion{{type[0]}}" href="#collapse{{type[0]}}{{counter | length}}">
+                    {{event.name}}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse{{type[0]}}{{counter | length}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <p>
+                    {% if g.user.is_authenticated() %}
+
+                    {% if event.id in past_events %}
+                     <p>Registration is closed for this event.</p>
+                      {% else %}
+                        {% if event in userevents %}
+                    
+                    <form style="display: inline-block" method="post" style="none;">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                      <input id="{{event.id}}" type="hidden" value="{{event.id}}" name="unregister">
+                      <button type="submit" class="btn btn-danger">Unregister</button>
+                    </form>
+                        {% else %}
+                    <form style="display: inline-block" method="post" style="none;">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                      <input id="{{event.id}}" type="hidden" value="{{event.id}}" name="register">
+                      <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                        {% endif %}
+                    {% endif %}
+                    {% endif %}
+                    {% if counter.append('1') %}{% endif %}
+
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %} 
+          </div>
+          
+
+        </div>
+        {% endfor %}
+        </div> <!-- row --><hr/>
+
+        <div class="row">
+        {% for type in eventtypes[3:6] %}
+        <div class="col-md-4">
+          <h4>{{type[1]}}</h4>
+          <div class="panel-group" id="accordion{{type[0]}}">
+            {% set counter = ['1']%}
+            {% for event in events %}
+            {% if event.department == type[0] %}
+            {% if event.id not in removed_events %}
+            <div class="panel {% if event in userevents %}{{'panel-success'}}{% else %}{{'panel-default'}}{% endif %}">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" class="btn-block" data-parent="#accordion{{type[0]}}" href="#collapse{{type[0]}}{{counter | length}}">
+                    {{event.name}}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse{{type[0]}}{{counter | length}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <p>
+                    {% if g.user.is_authenticated() %}
+
+                    {% if event.id in past_events %}
+                     <p>Registration is closed for this event.</p>
+                      {% else %}
+                        {% if event in userevents %}
+                    
+                    <form style="display: inline-block" method="post" style="none;">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                      <input id="{{event.id}}" type="hidden" value="{{event.id}}" name="unregister">
+                      <button type="submit" class="btn btn-danger">Unregister</button>
+                    </form>
+                        {% else %}
+                    <form style="display: inline-block" method="post" style="none;">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                      <input id="{{event.id}}" type="hidden" value="{{event.id}}" name="register">
+                      <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                        {% endif %}
+                    {% endif %}
+                    {% endif %}
+                    {% if counter.append('1') %}{% endif %}
+
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %} 
+          </div>
+          
+
+        </div>
+        {% endfor %}
+        </div> <!-- row --><hr/>
+
+        <div class="row">
+        {% for type in eventtypes[6:9] %}
+        <div class="col-md-4">
+          <h4>{{type[1]}}</h4>
+          <div class="panel-group" id="accordion{{type[0]}}">
+            {% set counter = ['1']%}
+            {% for event in events %}
+            {% if event.department == type[0] %}
+            <div class="panel {% if event in userevents %}{{'panel-success'}}{% else %}{{'panel-default'}}{% endif %}">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" class="btn-block" data-parent="#accordion{{type[0]}}" href="#collapse{{type[0]}}{{counter | length}}">
+                    {{event.name}}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse{{type[0]}}{{counter | length}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <p>
+                    {% if g.user.is_authenticated() %}
+
+                    {% if event.id in past_events %}
+                     <p>Registration is closed for this event.</p>
+                      {% else %}
+                        {% if event in userevents %}
+                    
+                    <form style="display: inline-block" method="post" style="none;">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                      <input id="{{event.id}}" type="hidden" value="{{event.id}}" name="unregister">
+                      <button type="submit" class="btn btn-danger">Unregister</button>
+                    </form>
+                        {% else %}
+                    <form style="display: inline-block" method="post" style="none;">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                      <input id="{{event.id}}" type="hidden" value="{{event.id}}" name="register">
+                      <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                        {% endif %}
+                    {% endif %}
+                    {% endif %}
+                    {% if counter.append('1') %}{% endif %}
+
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %} 
+          </div>
+          
+
+        </div>
+        {% endfor %}
+        </div> <!-- row -->
+
+
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+  </html>

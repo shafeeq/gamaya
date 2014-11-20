@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Gamaya 2014</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+    <style>
+      .jumbotron{
+        padding: 0px;
+      }
+      </style>
+  </head>
+
+  <body style="padding-top: 70px;">
+
+    {% include 'navbar.html' %}
+
+  
+
+      <!-- Main component for a primary marketing message or call to action -->
+      {% if g.user.is_authenticated() %}
+      <div class="jumbotron">
+          <div class="container">
+        <h3>Welcome, {{g.user.name}}.</h3>
+        <p>Your Gamaya id is: {{g.user.gamayaid}}</p>
+      </div>
+      </div>
+      <div class="jumbotron">
+          <div class="container">
+        <h3>Register for workshops</h3>
+        <p>To attend the various exciting workshops conducted as part of Gamaya 2k14, you will need to register for them. Head over to the <a href="{{url_for('workshops')}}">Workshops</a> section to register.</p>
+      </div>
+    </div>
+      <div class="jumbotron">
+          <div class="container">
+        <h3>Register for events</h3>
+        <p>To register for events, visit the <a href="{{url_for('events')}}">Events</a> section.</p>
+      </div>
+    </div>
+    {% else %}
+      <div class="jumbotron">
+          <div class="container">
+        <h3>Welcome to Gamaya Registrations!</h3>
+        <p>Create an account and register for all your interested events and workshops in Gamaya 2k14</p>
+        <a href="{{url_for('login')}}" role="button" class="btn btn-primary btn-lg">Login</a>
+
+        <a href="{{url_for('register')}}" role="button" class="btn btn-primary btn-lg">Create account</a>
+      
+      </div>
+    </div>
+
+    {% endif %}
+
+
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Gamaya 2014</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet" media="all">
+    <style>
+      .jumbotron{
+        padding: 0px;
+      }
+      </style>
+  </head>
+
+  <body >  
+
+    <!-- Main component for a primary marketing message or call to action -->
+      <div class="container">
+
+      <div class="row">
+
+          <div class="jumbotron" >
+            <div class="container">
+              <h2>Workshop: {{workshops[workshopid]['name']}}</h2>
+              <p>Total registrations: {{len(workshopinfo)}}</p>
+              <h5>As on: {{utc_to_local(datetime.datetime.utcnow()).strftime('%Y-%m-%d %H:%M:%S %Z ')}} 
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="panel-title">Registration details</h3> </div>
+          <div class="panel-body">
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  
+                  <th>GM-id</th>
+                  <th>Name</th>
+                  <th>College</th>
+                  <th>Phone</th>
+                  <th>Registered on</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for idx,user in enumerate(workshopinfo) %}
+                <tr>
+                  <td>{{idx+1}}</td>
+                  <td>{{user.gamayaid}}</td>
+                  <td> {{user.name}} </td>
+                  <td> {{user.college}} </td>
+                  <td> {{user.mobilenumber}} </td>
+                  <td> {{utc_to_local(user.__dict__[workshopid+'_registered_on']).strftime('%Y-%m-%d %H:%M:%S %Z ')}} </td>
+                 </tr>
+                {% endfor %}
+              </tbody>
+            </table>  
+          </div>
+        </div>
+      </div>
+        </div>
+      
+    </div>
+  </body>
+</html>

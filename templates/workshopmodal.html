@@ -1,0 +1,32 @@
+{% for id,details in workshops.items() %}
+<div class="modal fade" id="modal{{id}}" tabindex="-1" role="dialog" aria-labelledby="modal{{id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{details['name']}}</h4>
+      </div>
+      <div class="modal-body">
+        {{details['description']}}
+      </div>
+      <div class="modal-footer">
+        {% if g.user.is_authenticated() %}
+             {% if g.user.__dict__[id+'_registered'] == true %}
+             <form style="display: inline-block" method="post" style="none;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <input id="{{id}}" type="hidden" value="{{id}}" name="unregister">
+              <button type="submit" class="btn btn-danger">Unregister</button>
+            </form>
+             {% else %}
+             <form class="form" method="post">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <input id="{{id}}" type="hidden" value="{{id}}" name="register">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            {% endif %}
+            {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

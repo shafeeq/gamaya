@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <p>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <ul class="list-unstyled" > 
+        {% for category, message in messages %}
+        <li>
+          <div  class="alert alert-{{category}} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> {{message}} 
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+    </p>
+  </div>
+</div>

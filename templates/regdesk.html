@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <title>Gamaya 2014 | Admin | Registration Desk</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+  <style>
+  .jumbotron{
+    padding: 0px;
+  }
+  </style>
+</head>
+
+<body style="padding-top: 70px;">
+
+  {% include 'navbar.html' %}
+
+  
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="container">
+   {% include 'flash.html'%}
+
+   <div class="row">
+     {% include 'admin-sidebar.html' %}
+     <div class="col-md-10">
+      <h3>Register new account</h3>
+      <div class="row">
+        <form class="form" role="form" method="post">
+          <span class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">+91</div>
+                <input class="form-control" type="text" name="mobilenumber"placeholder="Mobile number" required maxlength="10">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="college" placeholder="College" value="NSS College of Engineering">
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </span>
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        </div>
+        <hr/>
+        <h4> Workshops: </h4>
+        <div calss="row">
+          <span class="form-inline">
+            <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="workshop2" value="workshop2">Robotics Workshop
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="workshop3" value="workshop3">Motion Sensing Workshop
+              </label>
+            </div>
+          </div>
+        </span>
+        </div>
+        <hr/>
+        <h4> Events: </h4>
+        <div class="row">
+         {% for type in eventtypes[:3] %}
+         <div class="col-md-4">
+          <h4>{{type[1]}}</h4>
+          {% for event in events %}
+          {% if event.department == type[0] %}
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="event{{event.id}}" value="{{id}}"> {{event.name}}
+              </label>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      <hr/>
+
+      <div class="row">
+         {% for type in eventtypes[3:6] %}
+         <div class="col-md-4">
+          <h4>{{type[1]}}</h4>
+          {% for event in events %}
+          {% if event.department == type[0] %}
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="event{{event.id}}" value="{{id}}"> {{event.name}}
+              </label>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <hr/>
+
+      <div class="row">
+         {% for type in eventtypes[6:9] %}
+         <div class="col-md-4">
+          <h4>{{type[1]}}</h4>
+          {% for event in events %}
+          {% if event.department == type[0] %}
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="event{{event.id}}" value="{{id}}"> {{event.name}}
+              </label>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</form>
+
+</div>
+</div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+  </html>

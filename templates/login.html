@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gamaya 2014 | Log in</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/signin.css') }}" rel="stylesheet">
+
+  <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+  </head>
+
+  <body style="padding-top: 70px;">
+
+    <!-- Fixed navbar -->
+    {% include 'navbar.html' %}
+
+    <div class="container">
+
+          {% include 'flash.html'%}
+
+
+        <form class="form-signin" role="login" action="login" method="post">
+          <h2 class="form-signin-heading">Please sign in</h2>
+          <input type="email" class="form-control" name="email" placeholder="Email address" required autofocus>
+          <input type="password" class="form-control" name="password" placeholder="Password"  required>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        </form>
+        <div class = "row form-signin" style="padding-top:1em; padding-bottom:1em; font-size: 16px">
+          Don't have an account? <a href="{{url_for('register')}}" class="green-a">Register here</a>
+        </div>
+      </div>
+      <!-- Main component for a primary marketing message or call to action -->
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

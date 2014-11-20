@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gamaya 2014 | Admin | User Details - {{user.gamayaid}}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+
+  </head>
+
+  <body style="padding-top: 70px;">
+
+    <!-- Fixed navbar -->
+    {% include 'navbar.html' %}
+
+  
+
+    <!-- Main component for a primary marketing message or call to action -->
+      <div class="container">
+
+      <div class="row">
+         {% include 'admin-sidebar.html' %}
+        <div class="col-md-10">
+          <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="panel-title">User details</h3> </div>
+          <div class="panel-body">
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>item</th>
+                  
+                  <th>detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Gamaya ID</td>
+                  <td>{{user.gamayaid}}</td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td> {{user.name}} </td>
+                </tr>
+                <tr>
+                  <td>College</td>
+                  <td> {{user.college}} </td>
+                </tr>
+                <tr>
+                  <td>Mobile Number</td>
+                  <td> {{user.mobilenumber}} </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td> {{user.email}} </td>
+                </tr>
+                <tr>
+                  <td>Account registered on</td>
+                  <td>{{utc_to_local(user.registered_on).strftime('%Y-%m-%d %H:%M:%S %Z ')}}</td>
+                </tr>
+                {% for idx,i in enumerate(workshops.items()) %}
+                 <tr>
+                  <td>Regstered for {{i[1]['name']}} ?</td>
+                  <td> {{user.__dict__['workshop{}_registered'.format(idx+1)]}} </td>
+                </tr>
+                <tr>
+                  <td>Regstered for {{i[1]['name']}} on</td>
+                  {% if user.__dict__['workshop{}_registered'.format(idx+1)] %}
+                  <td> {{utc_to_local(user.__dict__['workshop{}_registered_on'.format(idx+1)]).strftime('%Y-%m-%d %H:%M:%S %Z ')}} </td>
+                  {% else %}
+                  <td> N/A </td>
+                   {% endif %} 
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td>Events registered:</td>
+                   <td>
+                    <ul>
+                      {% for event in user.events.all() %}
+                      <li><a href="{{url_for("event",eventid=event.id)}}">{{event.name}}</a></li>
+                      {% endfor %}
+                    </ul>
+                   </td>
+                 </tr>
+              </tbody>
+            </table>  
+          </div>
+        </div>
+        
+      </div>
+        </div>
+      
+    </div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

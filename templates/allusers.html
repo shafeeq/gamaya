@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+
+  <title>Gamaya 2014 | Admin | All Users</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+
+</head>
+<style>
+.table {
+    white-space: nowrap;
+    max-width: none;
+  
+}
+</style>
+<body style="padding-top: 70px;">
+
+  <!-- Fixed navbar -->
+  {% include 'navbar.html' %}
+
+  
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+      <div class="btn-group">
+        <a href="{{url_for('allusers')}}" role="button" class="btn btn-primary active"><h5>All Users</h5></a>
+  <a href="{{url_for('searchuser')}}" role="button" class="btn btn-primary"><h5>Search User</h5></a>
+  <a href="{{url_for('allworkshops')}}" role="button" class="btn btn-primary"><h5>All Workshops</h5></a>
+  <a href="{{url_for('allevents')}}" role="button" class="btn btn-primary"><h5>All Events</h5></a>
+    </div>
+   </div>
+   </div>
+   <div class="row">
+
+    <h3>All Users:</h3>
+
+    <table class="table table-striped table-condensed table-hover table-responsive">
+      <thead>
+        <tr>
+          <th>GM-id</th>
+
+          <th>Name</th>
+          <th>College</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Registered on</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in userslist %}
+        <tr>
+          <td><a href="{{url_for('user',gamayaid=user.gamayaid)}}"> {{user.gamayaid}}</td>
+          <td> {{user.name}} </td>
+          <td> {{user.college}} </td>
+          <td> {{user.mobilenumber}} </td>
+          <td> {{user.email}} </td>
+          <td> {{utc_to_local(user.registered_on).strftime('%Y-%m-%d %H:%M:%S %Z ')}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>  
+
+  </div>
+
+</div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+  </html>

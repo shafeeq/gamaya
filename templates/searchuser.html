@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+ 
+
+  <title>Gamaya 2014 | Admin | User Search</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+
+</head>
+
+<body style="padding-top: 70px;">
+
+  <!-- Fixed navbar -->
+  {% include 'navbar.html' %}
+
+
+
+<!-- Main component for a primary marketing message or call to action -->
+<div class="container">
+  {% include 'flash.html'%}
+
+  <div class="row">
+     {% include 'admin-sidebar.html' %}
+
+    <div class="col-md-10">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+
+              <p>Search by <strong>Gamaya ID</strong></p>
+              <form class="form" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <input id="id" type="text"  name="gmid">
+                <button type="submit" class="btn btn-sm btn-primary">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+
+              <p>Search by <strong>Name</strong></p>
+              <form class="form" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"> 
+
+                <input id="id" type="text"  name="name">
+                <button type="submit" class="btn btn-sm btn-primary">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      
+  
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+
+          <p>Search by <strong>Email</strong></p>
+          <form class="form" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <input id="id" type="text"  name="email">
+            <span class="input-group-btn">
+            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+          </span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Search Results</h3> </div>
+    <div class="panel-body">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>GM-id</th>
+
+            <th>Name</th>
+            <th>College</th>
+            <th>Phone</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in userslist %}
+          <tr>
+            <td><a href="{{url_for('user',gamayaid=user.gamayaid)}}"> {{user.gamayaid}}</td>
+            <td> {{user.name}} </td>
+            <td> {{user.college}} </td>
+            <td> {{user.mobilenumber}} </td>
+            <td> {{user.email}} </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>  
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+  </html>

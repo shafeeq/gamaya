@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Gamaya 2014</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet" media="print">
+  <style>
+  .jumbotron{
+    padding: 0px;
+  }
+  </style>
+</head>
+
+<body >  
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="container">
+    
+
+
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="text-center"><img style="padding:0px;" src="{{ url_for('static',filename='images/gamaya.png') }}"></div>
+      <hr/>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"> Registration details</h3> </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+
+            <tbody>
+              <tr><td>Gamaya ID</td><td> {{g.user.gamayaid}}</td></tr>
+              <tr><td>Name </td><td> {{g.user.name}}</td></tr>
+              <tr><td>College </td><td> {{g.user.college}}</td></tr>
+              <tr><td>Email </td><td> {{g.user.email}}</td></tr>
+              <tr><td>Phone </td><td> {{g.user.mobilenumber}}</td></tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+
+        <hr/>
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="panel-title"> Workshops registered</h3> </div>
+          <div class="panel-body">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Workshop</th>
+                  <th>Registered on</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% set counter = ['1']%}
+                {% for id,details in workshops.items() %}
+                {% if g.user.__dict__[id+'_registered']  == True%}
+                <tr>
+                  <td>{{ counter | length }} {% if counter.append('1') %}{% endif %}</td>
+                  <td>
+                      <p>{{details['name']}}</p>
+                  </td>
+                  <td> {{utc_to_local(g.user.__dict__[id+'_registered_on']).strftime('%Y-%m-%d %H:%M:%S %Z ')}} </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

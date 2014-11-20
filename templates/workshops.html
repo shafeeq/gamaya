@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <title>Gamaya 2014 | Workshops</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+  <style>
+  .jumbotron{
+    padding: 0px;
+  }
+  </style>
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+</head>
+
+<body style="padding-top: 70px;">
+
+
+  <!-- Fixed navbar -->
+  {% include 'navbar.html' %}
+
+  <div class="jumbotron">
+    <div class="container">
+      <h3>Register for workshops:</h3>
+      {% if g.user.is_authenticated() %}
+      <p>After you register for interested workshops, print the registration details.<p>
+        <p>Please bring the printed details when attending workshops.</p>
+        <form class="form" method="get"> 
+                <input type="hidden" name="print" value="1">
+        <p><button type="submit" class="btn btn-primary">Get registration details</button></p>
+      </form>
+        {% else %}
+        <h4>Log in to register.</h4>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+        {% for id,details in workshops.items() %}
+        <div class ="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{details['name']}}</h3>
+            </div>
+            <div class="panel-body">
+             <!-- <p> {{details['description']}}</p> -->
+             {% if g.user.is_authenticated() %}
+             {% if details['past'] %}
+             <p>Registration is closed for this workshop.</p>
+             {% else %}
+             {% if g.user.__dict__[id+'_registered'] == true %}
+             <form style="display: inline-block" method="post" style="none;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <input id="{{id}}" type="hidden" value="{{id}}" name="unregister">
+              <button type="submit" class="btn btn-danger">Unregister</button>
+            </form>
+             {% else %}
+             <form style="display: inline-block" method="post" style="none;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <input id="{{id}}" type="hidden" value="{{id}}" name="register">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+  </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+  </html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+    <title>Gamaya 2014 | Admin | All Workshops</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+    <style>
+      .jumbotron{
+        padding: 0px;
+      }
+      </style>
+  </head>
+
+  <body style="padding-top: 70px;">
+
+    <!-- Fixed navbar -->
+    {% include 'navbar.html' %}
+
+  
+
+    <!-- Main component for a primary marketing message or call to action -->
+      <div class="container">
+{% include 'flash.html'%}
+
+      <div class="row">
+        {% include 'admin-sidebar.html' %}
+
+
+        <div class="col-md-10">
+                  <h3>All Workshops:</h3>
+        <div class="list-group">
+          {% for workshopid,details in workshops.items() %}
+          <a href="{{url_for('workshop',workshopid=workshopid)}}" class="list-group-item">
+            <h3 class="list-group-item-heading">{{details['name']}}</h3>
+          </a>
+          {% endfor %}
+        </div>  
+      </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

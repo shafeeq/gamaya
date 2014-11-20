@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Gamaya 2014 | Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootswatch.css')}}" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}"/>
+    <style>
+      .jumbotron{
+        padding: 0px;
+      }
+      </style>
+  </head>
+
+  <body style="padding-top: 70px;">
+
+    {% include 'navbar.html' %}
+
+  
+
+    <!-- Main component for a primary marketing message or call to action -->
+      <div class="container">
+
+
+      <div class="row">
+         {% include 'admin-sidebar.html' %}
+        <div class="col-md-10">
+                  
+          <div class="jumbotron">
+            <div class="container">
+              <h2> <a href="{{url_for('allusers')}}"> Users:</a></h2>
+              <p>
+               <a href="{{url_for('allusers')}}"> <button type="button" class="btn btn-primary">All Users</button></a>
+                <a href="{{url_for('searchuser')}}"><button type="button" class="btn btn-primary">Search for user</button>
+              </p>
+            </div>
+          </div>
+          <div class="jumbotron">
+            <div class="container">
+              <h2> <a href="{{url_for('allworkshops')}}"> Workshops:</a></h2>
+              <p>
+                <a href="{{url_for('allworkshops')}}"><button type="button" class="btn btn-primary">View workshops' details</button></a>
+              </p>
+            </div>
+          </div>
+          <div class="jumbotron">
+            <div class="container">
+              <h2> <a href="{{url_for('allevents')}}"> Events:</a></h2>
+              <p>
+                <a href="{{url_for('allevents')}}"><button type="button" class="btn btn-primary">View Events' details</button></a>
+              </p>
+            </div>
+          </div>
+          <div class="jumbotron">
+            <div class="container">
+              <h2> <a href="{{url_for('regdesk')}}"> Registration Desk:</a></h2>
+              <p>
+                <a href="{{url_for('regdesk')}}"><button type="button" class="btn btn-primary">Register new accounts</button></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>
